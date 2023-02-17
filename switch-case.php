@@ -20,7 +20,17 @@
             default:
                 echo 'Opção inválida!';
                 break;
-        }
+        } // statement: ações diferentes
+
+        echo "<br><br>";
+
+        echo match ($op) {
+            1 => "Cadastro",
+            2 => "Relatórios",
+            3 => "Opção inválida!",
+        } // expression: apenas uma ação com valores diferentes
+
+        // expressions são mais difíceis de trabalhar em primeiro momento, mas costumam ser mais concisos.
     ?>    
 </body>
 </html>

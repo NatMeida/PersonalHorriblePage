@@ -17,6 +17,12 @@
         } else {
             echo '<span id="reprovado">Reprovado!</span>';
         }
+
+        echo "<br><br>";
+        echo "Situação:  " . ($media >= 7 ? "Aprovado" : "Reprovado");
+
+        // estruturas ternárias são *expressions*, pois retornam um valor.
+        // switchs, whiles e ifs são *statements*, pois somente realizam uma ação.
     ?>
 </body>
 </html>
