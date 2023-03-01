@@ -22,7 +22,7 @@
                 break;
         } // statement: ações diferentes
 
-        echo "<br><br>";
+        echo "<br><br>"; 
 
         echo match ($op) {
             1 => "Cadastro",
