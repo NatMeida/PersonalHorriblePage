@@ -9,12 +9,12 @@
 <body>
     <form action="calcMedia.php" method="post">
         <label for="n1">Nota 1</label>
-        <input type="number" name="nota1" id="n1">
+        <input type="number" name="nota1" min="6" max="12">
 
         <br>
 
         <label for="n2">Nota 2</label>
-        <input type="number" name="nota2" id="n2">
+        <input type="number" name="nota2" min="6" max="12">
 
         <br><br>
 
