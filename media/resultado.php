@@ -25,7 +25,15 @@
         } else {
             echo "Erro: parâmetros inválidos.";
         }
+
+        // falar miau 28 vezes
+        $i = 0;
+        while ($i < 28) {
+            echo "miau ";
+            $i++;
+        }
     ?>
+
 </body>
 
 <style>
