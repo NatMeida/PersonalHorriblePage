@@ -12,7 +12,7 @@
     echo $nome . " " . $outronome;
     echo "<br><br>";
 
-    unset ($nome); 
+    unset ($nome);
 
     if (isset($nome)){  //notisset
         echo $nome;
@@ -45,7 +45,7 @@
     echo $resultado . "<br><br>";
     echo "Nome do aluno: " . NOME_ALUNO . "<br><br>";
 
-    
+
     // DEFINE("print", echo);
     // DEFINE("(", "\"");
     // DEFINE(")", "\";");
@@ -53,12 +53,12 @@
     // print(Hello World!)
 
     echo "<br><br>";
-    echo $_SERVER["SERVER_ADDR"] . "<BR>";
-    echo $_SERVER["SERVER_NAME"] . "<BR>";
-    echo $_SERVER["HTTP_USER_AGENT"] . "<BR>";
-    echo $_SERVER["REMOTE_ADDR"] . "<BR>";
-    echo $_SERVER["SCRIPT_NAME"] . "<BR>";
+    echo $_SERVER["SERVER_ADDR"] . "<br>";
+    echo $_SERVER["SERVER_NAME"] . "<br>";
+    echo $_SERVER["HTTP_USER_AGENT"] . "<br>";
+    echo $_SERVER["REMOTE_ADDR"] . "<br>";
+    echo $_SERVER["SCRIPT_NAME"] . "<br>";
 
-    
+
 ?>
 
