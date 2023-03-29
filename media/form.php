@@ -55,6 +55,18 @@
         echo "A média é: <span id='" . ($aprovado ? "aprovado" : "reprovado") . "'>" .  $media . "</span>";
     }
     ?>
+
+    <?php
+        $estado = 0;
+
+        echo "Oi meida";
+
+        if (estado == 0){
+            echo "Tenha um  bom dia!";
+        } else {
+            echo "Tenha um mau dia!";
+        }
+    ?>
 </body>
 
 </html>
