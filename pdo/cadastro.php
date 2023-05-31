@@ -74,9 +74,25 @@
                 include("database.php");
 
                 $stmt = $pdo -> prepare ("select * from alunos where ra = :ra");
-                $stmt -> blind;
-            }
-        } catch (PDOException $err) {
+                $stmt -> blindParam(':ra', $ra);
+                $stmt -> execute();
 
+                $rows = $stmt -> rowCount();
+
+                if ($rows <= 0){
+                    $stmt = $pdo -> prepare("insert into alunos (ra, nome, curso) values :ra, :nome, :curso)");
+                    $stmt -> blindParam(':ra', $ra);
+                    $stmt -> blindParam(':nome', $nome);
+                    $stmt -> blindParam(':curso', $curso);
+                    $stmt -> execute();
+
+                    echo "<span id='sucess'>Aluno cadastrado!</span>";
+                } else {
+                    echo "<span id='error'>RA já existente!</span>";
+                }
+            }
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
         }
+        $pdo = null;
     }
