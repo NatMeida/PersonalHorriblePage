@@ -1,3 +1,17 @@
+<?php
+    include("database.php");
+
+    if (isset($_POST["ra"]) && ($_POST["ra"] != "")){
+        $ra = $_POST["ra"];
+        $stmt = $pdo->prepare("select * from alunos where ra = :ra order by curso, nome");
+        $stmt ->bindParam(':ra', $ra);
+    } else {
+        $stmt = $pdo -> prepare("select * from alunos order by curso, nome");
+    }
+
+    $stmt -> execute();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,25 +30,10 @@
         <input type="submit" value="consultar">
         <hr>
     </form>
-</body>
-</html>
 
-<?php
-    if($_SERVER["REQUEST_METHOD"] ==='POST'){
-        include("database.php");
-
-        if (isset($_POST["ra"]) && ($_POST["ra"] != "")){
-            $ra = $_POST["ra"];
-            $stmt = $pdo->prepare("select * from alunos where ra= :ra order by curso, nome");
-            $stmt ->blindParam(':ra', $ra);
-        } else {
-            $stmt = $pdo -> prepare("select * from alunos order by curso, nome");
-        }
-
-        try{
-            $stmt->execute();
-
-            echo "<from method='post'>";
+    <?php
+        try {
+            echo "<form method='post'>";
             echo "<table border='1px'>";
             echo "<tr>";
             echo "<th></th>";
@@ -43,14 +42,53 @@
             echo "<th>Curso</th>";
             echo "</th>";
 
-            while ($row = $stmt->fetch()){
+            while ($row = $stmt->fetch()) {
                 echo "<tr>";
-                echo "<td><input type='radio' name='raAluno'
-                    value='" . $row['ra'] . "'>";
-                echo "<td>" . $row['ra'] . "</td>";
+                echo "<td><input type='radio' name='ra' value='{$row['ra']}'>";
+                echo "<td>{$row['ra']}</td>";
+                echo "<td>{$row['nome']}</td>";
+                echo "<td>{$row['curso']}</td>";
             }
+
+            echo "</table>";
+            echo "<br>";
+
+            echo "<div>";
+            echo "<button type='submit' formaction='excluir.php'>Excluir</button>";
+            echo "<button type='submit' formaction='consulta.php'>Consultar</button>";
+            echo "</div>";
         }
         catch (PDOException $e) {
-
+            echo $e;
         }
+    ?>
+
+</body>
+
+<style>
+    table {
+        border-collapse: collapse;
     }
+
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    td:nth-child(1) {
+        text-align: center;
+    }
+
+    form:has(table) {
+        max-width: max-content;
+    }
+
+    div:has(button[type='submit']) {
+        display: flex;
+        justify-content: flex-end;
+        column-gap: 0.5rem;
+    }
+</style>
+
+</html>
+

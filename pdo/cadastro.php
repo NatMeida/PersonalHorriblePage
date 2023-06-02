@@ -62,28 +62,29 @@
 
 <?php
     if ($_SERVER["REQUEST_METHOD"] === 'POST'){
-
-        try{
+        try {
             $ra = $_POST["ra"];
             $nome = $_POST["nome"];
             $curso = $_POST["curso"];
 
-            if((trim($ra) == "") || (trim($nome) == "")){
+            if ((trim($ra) == "") || (trim($nome) == "")) {
                 echo"<span id= 'warning'> RA e nome são obrigatórios!</span>";
             } else {
                 include("database.php");
 
                 $stmt = $pdo -> prepare ("select * from alunos where ra = :ra");
-                $stmt -> blindParam(':ra', $ra);
+                $stmt -> bindParam(':ra', $ra);
                 $stmt -> execute();
 
                 $rows = $stmt -> rowCount();
 
-                if ($rows <= 0){
-                    $stmt = $pdo -> prepare("insert into alunos (ra, nome, curso) values :ra, :nome, :curso)");
-                    $stmt -> blindParam(':ra', $ra);
-                    $stmt -> blindParam(':nome', $nome);
-                    $stmt -> blindParam(':curso', $curso);
+                // INSERT INTO alunos (ra, nome, curso) VALUES 201306, 'Natália', 'PD';
+
+                if ($rows <= 0) {
+                    $stmt = $pdo -> prepare("insert into alunos (ra, nome, curso) values (:ra, :nome, :curso)");
+                    $stmt -> bindParam(':ra', $ra);
+                    $stmt -> bindParam(':nome', $nome);
+                    $stmt -> bindParam(':curso', $curso);
                     $stmt -> execute();
 
                     echo "<span id='sucess'>Aluno cadastrado!</span>";
@@ -94,5 +95,6 @@
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
+
         $pdo = null;
     }
