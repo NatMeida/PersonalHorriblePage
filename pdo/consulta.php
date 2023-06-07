@@ -56,6 +56,7 @@
             echo "<div>";
             echo "<button type='submit' formaction='excluir.php'>Excluir</button>";
             echo "<button type='submit' formaction='consulta.php'>Consultar</button>";
+            echo "<button type='submit' formaction='edicao.php'>Editar</button>";
             echo "</div>";
         }
         catch (PDOException $e) {
