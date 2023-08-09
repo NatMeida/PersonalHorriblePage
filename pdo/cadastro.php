@@ -31,7 +31,7 @@
 
 <h2>Cadastro de Alunos</h2>
 <div>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
 
         RA:<br>
         <input type="text" size="10" name="ra"><br><br>
@@ -50,6 +50,9 @@
             <option value="Qualidade">Qualidade</option>
         </select><br><br>
 
+        Foto:<br>
+        <input type="file" name="foto" accept="image/gif, image/png, image/jpg, image/jpeg"><br><br>
+
         <input type="submit" value="Cadastrar">
 
         <hr>
@@ -61,15 +64,36 @@
 </html>
 
 <?php
+    define("TAMANHO_MAXIMO", (2 * 1024 * 1024));
+
     if ($_SERVER["REQUEST_METHOD"] === 'POST'){
         try {
             $ra = $_POST["ra"];
             $nome = $_POST["nome"];
             $curso = $_POST["curso"];
 
+            //foto
+            $foto = $_FILES['foto'];
+            $nomeFoto = $foto['name'];
+            $tipoFoto = $foto['type'];
+            $tamanhoFoto = $foto['size'];
+
             if ((trim($ra) == "") || (trim($nome) == "")) {
                 echo"<span id= 'warning'> RA e nome são obrigatórios!</span>";
-            } else {
+            }
+
+            //verifica se o arquivo é uma imagem
+            else if (($nomeFoto != "") &&
+            (!preg_match('/^image\/(jpg|jpeg|png|gif)$/',$tipoFoto)) ){
+                echo "<span id='error'>Formato de imagem inválido!</span>";
+            }
+
+            //verifica se o tamanho da imagem é maior que o permitido
+            else if ($tamanhoFoto > TAMANHO_MAXIMO){
+                echo "<span id='error'>Tamanho da imagem excedido!</span>";
+            }
+
+            else {
                 include("database.php");
 
                 $stmt = $pdo -> prepare ("select * from alunos where ra = :ra");
@@ -85,6 +109,8 @@
                     $stmt -> bindParam(':ra', $ra);
                     $stmt -> bindParam(':nome', $nome);
                     $stmt -> bindParam(':curso', $curso);
+
+
                     $stmt -> execute();
 
                     echo "<span id='sucess'>Aluno cadastrado!</span>";

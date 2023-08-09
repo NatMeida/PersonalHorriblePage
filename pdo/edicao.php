@@ -42,7 +42,7 @@
 
         <label for="nome">Nome</label>
         <input type="text" size="50" name="nome" value="<?= $nome ?>">
-        
+
 
         <label for="curso">Curso</label>
         <select name="" id="" value="<?= $curso ?>">
